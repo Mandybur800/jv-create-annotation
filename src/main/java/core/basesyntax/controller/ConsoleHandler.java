@@ -6,7 +6,7 @@ import core.basesyntax.model.Bet;
 import java.util.Scanner;
 
 public class ConsoleHandler {
-    BetDao betDao = new BetDaoImpl();
+    private BetDao betDao = new BetDaoImpl();
 
     public void handle() {
         Scanner scanner = new Scanner(System.in);
@@ -19,11 +19,11 @@ public class ConsoleHandler {
             Bet bet = null;
             try {
                 String[] betData = command.split(" ");
-                if (betData.length > 2) {
-                    throw new RuntimeException();
-                }
                 int value = Integer.parseInt(betData[0]);
                 double risk = Double.parseDouble(betData[1]);
+                if (betData.length > 2 || value <= 0 || risk <= 0) {
+                    throw new RuntimeException();
+                }
                 bet = new Bet(value, risk);
 
             } catch (NumberFormatException e) {
@@ -31,10 +31,10 @@ public class ConsoleHandler {
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("You need to input two values!");
             } catch (RuntimeException e) {
-                System.out.println("Please, enter two values");
+                System.out.println("Please, enter two positive values");
             }
             betDao.add(bet);
-            System.out.println(bet == null ? null : bet.toString());
+            System.out.println(bet);
         }
     }
 }
