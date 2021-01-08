@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 public class ConsoleHandler {
     private static final Scanner scanner = new Scanner(System.in);
+    private static final String NAME_PATTERN = "[a-zA-Z_]\\w{2,}";
+    private static final String EXIT = "q";
     private BetDao betDao = new BetDaoImpl();
     private GameDao gameDao = new GameDaoImpl();
 
@@ -21,7 +23,7 @@ public class ConsoleHandler {
                     + "2 - for input Game;\n");
             String command = scanner.nextLine();
             switch (command) {
-                case "q" :
+                case EXIT :
                     return;
                 case "1" :
                     handleBet();
@@ -39,7 +41,7 @@ public class ConsoleHandler {
         while (true) {
             System.out.println("Please, enter type of sport or 'q' for exit to previous menu");
             String sport = scanner.nextLine();
-            while (!sport.matches("[a-zA-Z_]\\w{2,}")) {
+            while (!sport.matches(NAME_PATTERN)) {
                 System.out.println("Please, enter correct sport or 'q' for exit to previous menu");
                 sport = scanner.nextLine();
                 if (sport.equalsIgnoreCase("q")) {
@@ -47,12 +49,12 @@ public class ConsoleHandler {
                 }
             }
             String team1 = "";
-            while (!team1.matches("[a-zA-Z_]\\w{2,}")) {
+            while (!team1.matches(NAME_PATTERN)) {
                 System.out.println("Please, enter first team");
                 team1 = scanner.nextLine();
             }
             String team2 = "";
-            while (!team2.matches("[a-zA-Z_]\\w{2,}")) {
+            while (!team2.matches(NAME_PATTERN)) {
                 System.out.println("Please, enter second team");
                 team2 = scanner.nextLine();
             }
@@ -67,7 +69,7 @@ public class ConsoleHandler {
             System.out.println("Please, enter value and risk for your bet "
                     + "or 'q' for exit to previous menu");
             String command = scanner.nextLine();
-            if (command.equalsIgnoreCase("q")) {
+            if (command.equalsIgnoreCase(EXIT)) {
                 return;
             }
             Bet bet = null;
