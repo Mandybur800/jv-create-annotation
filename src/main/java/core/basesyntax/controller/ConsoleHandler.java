@@ -88,8 +88,10 @@ public class ConsoleHandler {
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("You need to input two values!");
             }
-            betDao.add(bet);
-            System.out.println(bet);
+            if (bet != null) {
+                betDao.add(bet);
+                System.out.println(bet);
+            }
         }
     }
 }
