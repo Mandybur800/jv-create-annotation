@@ -78,7 +78,8 @@ public class ConsoleHandler {
                 int value = Integer.parseInt(betData[0]);
                 double risk = Double.parseDouble(betData[1]);
                 if (betData.length > 2 || value <= 0 || risk <= 0) {
-                    throw new RuntimeException();
+                    System.out.println("Incorrect input! We need to positive numbers");
+                    continue;
                 }
                 bet = new Bet(value, risk);
 
@@ -86,8 +87,6 @@ public class ConsoleHandler {
                 System.out.println("Incorrect input, please enter again");
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("You need to input two values!");
-            } catch (RuntimeException e) {
-                System.out.println("Please, enter two positive values");
             }
             betDao.add(bet);
             System.out.println(bet);
