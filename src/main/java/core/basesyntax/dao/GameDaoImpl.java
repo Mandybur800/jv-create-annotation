@@ -1,9 +1,11 @@
 package core.basesyntax.dao;
 
 import core.basesyntax.db.Storage;
+import core.basesyntax.lib.Dao;
 import core.basesyntax.model.Game;
 import java.util.List;
 
+@Dao
 public class GameDaoImpl implements GameDao {
     @Override
     public void add(Game game) {

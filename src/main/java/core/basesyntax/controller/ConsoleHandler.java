@@ -1,9 +1,8 @@
 package core.basesyntax.controller;
 
 import core.basesyntax.dao.BetDao;
-import core.basesyntax.dao.BetDaoImpl;
 import core.basesyntax.dao.GameDao;
-import core.basesyntax.dao.GameDaoImpl;
+import core.basesyntax.lib.Inject;
 import core.basesyntax.model.Bet;
 import core.basesyntax.model.Game;
 import java.util.Scanner;
@@ -12,8 +11,10 @@ public class ConsoleHandler {
     private static final Scanner scanner = new Scanner(System.in);
     private static final String NAME_PATTERN = "[a-zA-Z_]\\w{2,}";
     private static final String EXIT = "q";
-    private BetDao betDao = new BetDaoImpl();
-    private GameDao gameDao = new GameDaoImpl();
+    @Inject
+    private BetDao betDao;
+    @Inject
+    private GameDao gameDao;
 
     public void handle() {
         while (true) {
@@ -42,11 +43,11 @@ public class ConsoleHandler {
             System.out.println("Please, enter type of sport or 'q' for exit to previous menu");
             String sport = scanner.nextLine();
             while (!sport.matches(NAME_PATTERN)) {
-                System.out.println("Please, enter correct sport or 'q' for exit to previous menu");
-                sport = scanner.nextLine();
                 if (sport.equalsIgnoreCase("q")) {
                     return;
                 }
+                System.out.println("Please, enter correct sport or 'q' for exit to previous menu");
+                sport = scanner.nextLine();
             }
             String team1 = "";
             while (!team1.matches(NAME_PATTERN)) {
