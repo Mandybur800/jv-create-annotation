@@ -18,7 +18,7 @@ public class Injector {
                 Object dao = Factory.getDao(field.getType());
                 if (!dao.getClass().isAnnotationPresent(Dao.class)) {
                     throw new AnnotationNotPresentException("Annotation for "
-                            + dao.getClass() + " object was not Exist");
+                            + dao.getClass() + " does not exist");
                 }
                 field.set(instance, dao);
             }
